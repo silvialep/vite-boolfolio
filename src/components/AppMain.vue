@@ -59,7 +59,7 @@ export default {
     justify-content: space-around;
     gap: 20px;
     padding: 50px 0;
-    margin: auto;
+    margin: 100px auto 0;
 
 
     .single-card {
