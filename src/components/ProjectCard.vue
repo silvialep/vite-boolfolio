@@ -18,7 +18,7 @@ export default {
 
         projectImage() {
             if (this.project.project_cover == null) {
-                return "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
+                return "https://pic.onlinewebfonts.com/svg/img_98811.png";
             } else {
                 return this.basicPath + 'storage/' + this.project.project_cover;
             }
@@ -34,12 +34,12 @@ export default {
 
     
     <div class="card mb-3" style="width: 640px;">
-        <div class="row g-0">
-            <div class="col-md-4 card-image">
-                <img :src="projectImage" class="project-image" alt="immagine progetto">
+        <div class="row g-0" id="row-container">
+            <div class="col-md-4" id="card-image">
+                <img :src="projectImage" id="project-image" alt="immagine progetto">
             </div>
             <div class="col-md-8">
-                <div class="card-body">
+                <div class="card-body" id="card-text">
                     <h5 class="card-title">{{ project.title }}</h5>
                     <small>{{ project.description }}</small>
                     <p class="card-text">{{ project.content }}</p>
@@ -47,20 +47,34 @@ export default {
             </div>
         </div>
     </div>
+
+    
     
 
 </template>
 
 <style lang="scss" scoped>
 
-.card-image {
+#row-container {
+    width: 100%;
+    height: 100%;
 
-    .project-image {
+    #card-image {
         height: 100%;
-        width: 100%;
-        object-fit: contain;
-        object-position: center;
+    
+        #project-image {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            object-position: center;
+            overflow: hidden;
+            border-radius: 10px;
+        }
     }
+}
+
+#card-text {
+    color:rgb(5, 19, 32);
 }
 
 </style>

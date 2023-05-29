@@ -42,15 +42,23 @@ export default {
 
 <template>
 
-  <AppHeader></AppHeader>
+  <div id="app-container">
+    
+      <AppHeader></AppHeader>
+    
+      <AppMain></AppMain>
+    
+      <AppFooter></AppFooter>
 
-  <AppMain></AppMain>
-
-  <AppFooter></AppFooter>
+  </div>
 
 </template>
 
 <style lang="scss" scoped>
+
+#app-container {
+  background-color: rgb(56, 43, 43);
+}
 
 </style>
 
