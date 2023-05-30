@@ -2,11 +2,11 @@
 
 import axios from "axios";
 
-import ProjectCard from './ProjectCard.vue';
+import ProjectCard from '../components/ProjectCard.vue';
 
 export default {
 
-    name: 'AppMain',
+    name: 'AppIndex',
 
     data() {
         return {
@@ -47,12 +47,12 @@ export default {
 </script>
 
 <template>
-
     <div class="container" id="main-container">
         <ProjectCard :project="project" v-for="project in projects" id="single-card"></ProjectCard>
+    </div>
+    <div class="container my-3 d-flex justify-content-center">
         <button class="btn">Avanti</button>
     </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -64,7 +64,7 @@ export default {
     gap: 20px;
     padding: 50px 0;
     margin: 100px auto 0;
-    
+    height: calc(100vh - 250px);
 
 
     #single-card {
@@ -73,10 +73,10 @@ export default {
         width: calc(100% / 2);
     }
 
-    button {
-        color:rgb(5, 19, 32);
-        background-color: rgb(109, 74, 74);
-    }
+}
+button {
+    color: rgb(5, 19, 32);
+    background-color: rgb(109, 74, 74);
 }
 </style>
 

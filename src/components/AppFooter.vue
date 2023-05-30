@@ -58,6 +58,7 @@ export default {
 <style lang="scss" scoped>
 
 footer {
+    height: 150px;
     background-color: rgb(36, 36, 36);
 
     .footer-link {
