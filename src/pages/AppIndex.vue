@@ -12,7 +12,7 @@ export default {
         return {
             projects: [],
 
-            currentPage: 1,
+            apiUrl: 'http://127.0.0.1:8000/api/projects',
 
             pagination: {},
         }
@@ -27,14 +27,24 @@ export default {
     },
 
     created() {
-        this.getProjects();
+        this.getProjects(this.apiUrl);
     },
 
     methods: {
-        getProjects() {
-            axios.get('http://127.0.0.1:8000/api/projects?page=' + this.currentPage).then(response => {
-                console.log(response.data.results.data);
+        getProjects(apiUrl) {
+            axios.get(apiUrl).then(response => {
                 this.projects = response.data.results.data;
+                this.pagination = response.data.results;
+            });
+        },
+
+        getSlugs() {
+            axios.get(`${this.apiUrl}/api/posts/${this.$route.params.slug}`).then((response) => {
+                if (response.data.success) {
+                    this.post = response.data.post;
+                } else {
+                    this.$router.push({ name: 'not-found' })
+                }
             });
         },
     },
@@ -48,10 +58,19 @@ export default {
 
 <template>
     <div class="container" id="main-container">
+        
         <ProjectCard :project="project" v-for="project in projects" id="single-card"></ProjectCard>
+        
     </div>
-    <div class="container my-3 d-flex justify-content-center">
-        <button class="btn">Avanti</button>
+    <div class="container my-3 d-flex justify-content-center gap-1">
+        <button class="btn btn-outline-light" @click="getProjects('http://127.0.0.1:8000/api/projects?page=1')">First</button>
+        <button class="btn" 
+        v-for="link in pagination.links" 
+        v-html="link.label" 
+        :disabled="link.url == null ? true : false" 
+        :class="link.active ? 'btn-danger' : 'btn-outline-light'" 
+        @click="getProjects(link.url)"></button>
+        <button class="btn btn-outline-light" @click="getProjects('http://127.0.0.1:8000/api/projects?page=5')">Last</button>
     </div>
 </template>
 

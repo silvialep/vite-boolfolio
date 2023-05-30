@@ -32,7 +32,6 @@ export default {
 
 <template>
 
-    
     <div class="card mb-3" style="width: 640px;">
         <div class="row g-0" id="row-container">
             <div class="col-md-4" id="card-image">
