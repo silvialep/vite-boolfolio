@@ -45,7 +45,6 @@ export default {
     gap: 20px;
     padding: 50px 0;
     margin: 100px auto 0;
-    height: calc(100vh - 250px);
 
     h1 {
         color: #cf4fa0;

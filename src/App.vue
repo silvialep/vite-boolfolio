@@ -44,7 +44,10 @@ export default {
     
       <AppHeader></AppHeader>
     
-      <router-view></router-view>
+      <div id="page-container">
+        <router-view></router-view>
+
+      </div>
     
       <AppFooter></AppFooter>
 
@@ -56,6 +59,11 @@ export default {
 
 #app-container {
   background-color: #4c3443;
+
+  #page-container {
+    height: calc(100vh - 100px);
+
+  }
 }
 
 </style>

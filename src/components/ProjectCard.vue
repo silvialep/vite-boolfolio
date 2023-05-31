@@ -39,9 +39,10 @@ export default {
             </div>
             <div class="col-md-8">
                 <div class="card-body" id="card-text">
-                    <h5 class="card-title">{{ project.title }}</h5>
+                    <h4 class="card-title">{{ project.title }}</h4>
                     <small>{{ project.description }}</small>
                     <p class="card-text">{{ project.content }}</p>
+                    <router-link class="btn btn-outline-light show-button" :to="{name: 'projects.show', params: {slug: project.slug}}">Vai al progetto</router-link>
                 </div>
             </div>
         </div>
@@ -56,6 +57,7 @@ export default {
 
 #project-card {
     width: calc(100% / 2 - 20px);
+    max-height: 230px;
     border-radius: 10px;
     background-color: #823a68;
 }
@@ -74,12 +76,27 @@ export default {
             object-position: center;
             overflow: hidden;
             border-radius: 10px;
+            padding: 5px;
         }
     }
-}
+    
 
-#card-text {
-    color:#2e241f;
+    #card-text {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 5px;
+        max-height: 230px;
+        color:#2e241f;
+
+        p {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .show-button {
+            align-self:flex-end;
+        }
+    }
 }
 
 </style>

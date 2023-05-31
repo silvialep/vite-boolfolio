@@ -22,6 +22,9 @@ const router = createRouter({
             path: '/about',
             name: 'about',
             component: AppAbout,
+            meta: {
+                title: 'About',
+            },
         },
         {
             path: '/index',
@@ -35,6 +38,9 @@ const router = createRouter({
             path: '/projects/:slug',
             name: 'projects.show',
             component: SingleProject,
+            meta: {
+                title: SingleProject.title,
+            },
         },
     ],
 });
