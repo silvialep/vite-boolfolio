@@ -32,7 +32,7 @@ export default {
 
 <template>
 
-    <div class="card mb-3" style="width: 640px;">
+    <div class="card mb-3" id="project-card">
         <div class="row g-0" id="row-container">
             <div class="col-md-4" id="card-image">
                 <img :src="projectImage" id="project-image" alt="immagine progetto">
@@ -53,6 +53,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+#project-card {
+    width: calc(100% / 2 - 20px);
+    border-radius: 10px;
+    background-color: rgb(109, 74, 74);
+}
 
 #row-container {
     width: 100%;

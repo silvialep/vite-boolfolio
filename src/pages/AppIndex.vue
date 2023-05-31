@@ -15,6 +15,9 @@ export default {
             apiUrl: 'http://127.0.0.1:8000/api/projects',
 
             pagination: {},
+
+            first: '',
+            last: '',
         }
     },
 
@@ -28,6 +31,7 @@ export default {
 
     created() {
         this.getProjects(this.apiUrl);
+        console.log(this.projects);
     },
 
     methods: {
@@ -39,12 +43,18 @@ export default {
         },
 
         getSlugs() {
-            axios.get(`${this.apiUrl}/api/posts/${this.$route.params.slug}`).then((response) => {
+            axios.get(`${this.apiUrl}${this.$route.params.slug}`).then((response) => {
                 if (response.data.success) {
                     this.post = response.data.post;
                 } else {
                     this.$router.push({ name: 'not-found' })
                 }
+            });
+        },
+
+        getFirst(apiUrl) {
+            axios.get(apiUrl).then(response => {
+                this.first = response.data.results.first_page_url;
             });
         },
     },
@@ -58,7 +68,7 @@ export default {
 
 <template>
     <div v-if="projects.length > 0" class="container" id="main-container">
-        <ProjectCard :project="project" v-for="project in projects" id="single-card"></ProjectCard>
+        <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
     </div>
     <div v-else class="container" id="loader-container">
         <div class="d-flex justify-content-center">
@@ -69,14 +79,14 @@ export default {
     </div>
 
     <div class="container my-3 d-flex justify-content-center gap-1">
-        <button class="btn btn-outline-light" @click="getProjects('http://127.0.0.1:8000/api/projects?page=1')">First</button>
+        <button class="btn btn-outline-light" @click="getFirst()">First</button>
         <button class="btn" 
         v-for="link in pagination.links" 
         v-html="link.label" 
         :disabled="link.url == null ? true : false" 
         :class="link.active ? 'btn-danger' : 'btn-outline-light'" 
         @click="getProjects(link.url)"></button>
-        <button class="btn btn-outline-light" @click="getProjects('http://127.0.0.1:8000/api/projects?page=5')">Last</button>
+        <button class="btn btn-outline-light" @click="getLast()">Last</button>
     </div>
 </template>
 
@@ -99,11 +109,6 @@ export default {
     height: calc(100vh - 250px);
 
 
-    #single-card {
-        border-radius: 10px;
-        background-color: rgb(109, 74, 74);
-        width: calc(100% / 2);
-    }
 
 }
 button {
