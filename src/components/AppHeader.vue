@@ -41,11 +41,11 @@ export default {
         <nav class="navbar navbar-dark p-2">
             <div id="navbar-container">
                 <div id="nav-logo-links">
-                    <h2><router-link class="text-white text-decoration-none" :to="{name: 'home'}">My Boolfolio</router-link></h2>
+                    <h2><router-link class="logo-title" :to="{name: 'home'}">My Boolfolio</router-link></h2>
                     <ul id="nav-links">
-                        <li><router-link class="text-white text-decoration-none" :to="{name: 'home'}">Home</router-link></li>
-                        <li><router-link class="text-white text-decoration-none" :to="{name: 'about'}">Chi sono</router-link></li>
-                        <li><router-link class="text-white text-decoration-none" :to="{name: 'index'}">I miei progetti</router-link></li>
+                        <li><router-link class="single-link" :to="{name: 'home'}">Home</router-link></li>
+                        <li><router-link class="single-link" :to="{name: 'about'}">Chi sono</router-link></li>
+                        <li><router-link class="single-link" :to="{name: 'index'}">I miei progetti</router-link></li>
                     </ul>
                 </div>
                 <form class="d-flex gap-2 input-group w-auto">
@@ -61,6 +61,18 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+.logo-title {
+    color: #cf4fa0;
+    text-decoration: none;
+}
+.single-link {
+    color: #823a68;
+    text-decoration: none;
+}
+.router-link-active {
+    color: #cf4fa0;
+}
 
 header {
     height: 100px;
@@ -94,13 +106,14 @@ header {
                     align-items: center;
                     gap: 15px;
                     list-style-type: none;
-    
+
+                    
                 }
             }
-
+            
         }
     }
-
+    
 }
 
 </style>

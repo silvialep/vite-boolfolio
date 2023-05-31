@@ -55,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 
 #app-container {
-  background-color: rgb(56, 43, 43);
+  background-color: #4c3443;
 }
 
 </style>

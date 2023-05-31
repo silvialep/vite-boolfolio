@@ -57,7 +57,7 @@ export default {
 #project-card {
     width: calc(100% / 2 - 20px);
     border-radius: 10px;
-    background-color: rgb(109, 74, 74);
+    background-color: #823a68;
 }
 
 #row-container {
@@ -79,7 +79,7 @@ export default {
 }
 
 #card-text {
-    color:rgb(5, 19, 32);
+    color:#2e241f;
 }
 
 </style>

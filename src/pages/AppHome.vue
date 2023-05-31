@@ -47,6 +47,10 @@ export default {
     margin: 100px auto 0;
     height: calc(100vh - 250px);
 
+    h1 {
+        color: #cf4fa0;
+    }
+
 }
 </style>
 

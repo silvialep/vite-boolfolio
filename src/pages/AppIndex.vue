@@ -16,8 +16,6 @@ export default {
 
             pagination: {},
 
-            first: '',
-            last: '',
         }
     },
 
@@ -31,32 +29,18 @@ export default {
 
     created() {
         this.getProjects(this.apiUrl);
-        console.log(this.projects);
     },
 
     methods: {
         getProjects(apiUrl) {
             axios.get(apiUrl).then(response => {
+                // console.log(response.data);
                 this.projects = response.data.results.data;
                 this.pagination = response.data.results;
+                console.log('pagination: ', this.pagination);
             });
         },
 
-        getSlugs() {
-            axios.get(`${this.apiUrl}${this.$route.params.slug}`).then((response) => {
-                if (response.data.success) {
-                    this.post = response.data.post;
-                } else {
-                    this.$router.push({ name: 'not-found' })
-                }
-            });
-        },
-
-        getFirst(apiUrl) {
-            axios.get(apiUrl).then(response => {
-                this.first = response.data.results.first_page_url;
-            });
-        },
     },
 
 
@@ -79,14 +63,14 @@ export default {
     </div>
 
     <div class="container my-3 d-flex justify-content-center gap-1">
-        <button class="btn btn-outline-light" @click="getFirst()">First</button>
+        <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.first_page_url.substr(pagination.first_page_url.length - 1) ? true : false" @click="getProjects(pagination.first_page_url)">First</button>
         <button class="btn" 
         v-for="link in pagination.links" 
         v-html="link.label" 
         :disabled="link.url == null ? true : false" 
         :class="link.active ? 'btn-danger' : 'btn-outline-light'" 
         @click="getProjects(link.url)"></button>
-        <button class="btn btn-outline-light" @click="getLast()">Last</button>
+        <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.last_page_url.substr(pagination.last_page_url.length - 1) ? true : false" @click="getProjects(pagination.last_page_url)">Last</button>
     </div>
 </template>
 
@@ -112,8 +96,8 @@ export default {
 
 }
 button {
-    color: rgb(5, 19, 32);
-    background-color: rgb(109, 74, 74);
+    color: #2e241f;
+    background-color: #823a68;
 }
 </style>
 

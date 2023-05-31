@@ -14,6 +14,9 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: AppHome,
+            meta: {
+                title: 'Home',
+            },
         },
         {
             path: '/about',
@@ -24,13 +27,20 @@ const router = createRouter({
             path: '/index',
             name: 'index',
             component: AppIndex,
+            meta: {
+                title: 'I miei progetti',
+            },
         },
         {
             path: '/projects/:slug',
-            name: 'single-project',
+            name: 'projects.show',
             component: SingleProject,
         },
     ],
+});
+
+router.beforeEach((to) => {
+    document.title = to.meta?.title ? 'My Boolfolio - ' + to.meta.title : 'Nome a caso';
 });
 
 export { router };
