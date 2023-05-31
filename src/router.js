@@ -38,9 +38,9 @@ const router = createRouter({
             path: '/projects/:slug',
             name: 'projects.show',
             component: SingleProject,
-            meta: {
-                title: SingleProject.title,
-            },
+            // meta: {
+            //     title: SingleProject.project.title,
+            // },
         },
     ],
 });
