@@ -57,11 +57,17 @@ export default {
 </script>
 
 <template>
-    <div class="container" id="main-container">
-        
+    <div v-if="projects.length > 0" class="container" id="main-container">
         <ProjectCard :project="project" v-for="project in projects" id="single-card"></ProjectCard>
-        
     </div>
+    <div v-else class="container" id="loader-container">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
     <div class="container my-3 d-flex justify-content-center gap-1">
         <button class="btn btn-outline-light" @click="getProjects('http://127.0.0.1:8000/api/projects?page=1')">First</button>
         <button class="btn" 
@@ -75,6 +81,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
+#loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 250px);
+}
 
 #main-container {
     display: flex;
