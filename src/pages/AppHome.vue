@@ -34,6 +34,10 @@ export default {
     <div class="container" id="home-container">
         <h1>Benvenuti nel mio Boolfolio</h1>
     </div>
+    <div>
+        <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
+        <router-link class="single-link" :to="{ name: 'login' }">Login</router-link>
+    </div>
 </template>
 
 <style lang="scss" scoped>

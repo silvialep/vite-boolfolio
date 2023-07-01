@@ -12,7 +12,7 @@ export default {
         return {
             projects: [],
 
-            apiUrl: 'http://127.0.0.1:8000/api/projects',
+            apiUrl: 'http://127.0.0.1:8000/api/projects?page=1',
 
             pagination: {},
 
@@ -22,6 +22,8 @@ export default {
 
             selectedTypeId: '',
 
+            
+            isLoading: true,
             projectsFound: false,
         }
     },
@@ -34,29 +36,35 @@ export default {
 
     },
 
-    created() {
-        this.getProjects(this.apiUrl);
-    },
 
     methods: {
         getProjects(apiUrl) {
-            axios.get(apiUrl + '?page=' + this.currentPage + '&type_id=' + this.selectedTypeId).then(response => {
-                // console.log(response.data);
-                // this.projects = response.data.results.data;
-                // this.pagination = response.data.results;
-                // console.log('pagination: ', this.pagination);
+
+            apiUrl = apiUrl + '&type_id=' + this.selectedTypeId;
+
+            axios.get(apiUrl).then(response => {
+
                 if (response.data.success) {
-                    this.projects = response.data.results.data;
-                    this.types = response.data.allTypes;
                     this.projectsFound = true;
+                    this.isLoading = false;
+
+                    this.projects = response.data.results.data;
+                    this.pagination = response.data.results;
+                    this.types = response.data.types;
                 } else {
-
+                    this.isLoading = false;
                     this.projectsFound = false;
-
+    
                 }
-            });
-        },
 
+            });
+
+        },
+    },
+
+    
+    mounted() {
+        this.getProjects(this.apiUrl);
     },
 
 
@@ -70,27 +78,40 @@ export default {
 
     <div id="index-container">
 
-        <div v-if="projectsFound" class="container" id="main-container">
-            <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
-        </div>
-        <div v-else class="container" id="loader-container">
-            <div class="d-flex justify-content-center">
-                <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+        <div v-if="isLoading" class="text-center py-5">
+            <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-    
-        <!-- <div class="container d-flex justify-content-center gap-1">
-            <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.first_page_url.substr(pagination.first_page_url.length - 1) ? true : false" @click="getProjects(pagination.first_page_url)">First</button>
-            <button class="btn" 
-            v-for="link in pagination.links" 
-            v-html="link.label" 
-            :disabled="link.url == null ? true : false" 
-            :class="link.active ? 'btn-danger' : 'btn-outline-light'" 
-            @click="getProjects(link.url)"></button>
-            <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.last_page_url.substr(pagination.last_page_url.length - 1) ? true : false" @click="getProjects(pagination.last_page_url)">Last</button>
-        </div> -->
+        <div v-else>
+
+            <div v-if="projectsFound" class="container" id="main-container">
+                <ProjectCard :project="project" v-for="project in projects"></ProjectCard>
+            </div>
+
+            
+            <!-- <div class="container d-flex justify-content-center gap-1">
+                <button v-for="link in pagination.links"
+              class="btn" 
+              :class="link.active ? 'btn-primary' : 'btn-outline-secondary'" 
+              v-html="link.label" 
+              :disabled="link.url == null ? true : false" 
+              @click="getProjects(link.url)">
+          
+            </button> -->
+
+            <div class="container d-flex justify-content-center gap-1">
+                <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.first_page_url.substr(pagination.first_page_url.length - 1) ? true : false" @click="getProjects(pagination.first_page_url)">First</button>
+                <button class="btn" 
+                v-for="link in pagination.links" 
+                v-html="link.label" 
+                :disabled="link.url == null ? true : false" 
+                :class="link.active ? 'btn-danger' : 'btn-outline-light'" 
+                @click="getProjects(link.url)"></button>
+                <button class="btn btn-outline-light" :disabled="pagination.current_page == pagination.last_page_url.substr(pagination.last_page_url.length - 1) ? true : false" @click="getProjects(pagination.last_page_url)">Last</button>
+            </div>
+        </div>
+
     </div>
 </template>
 
